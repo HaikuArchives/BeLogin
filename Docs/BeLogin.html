@@ -1,0 +1,204 @@
+<html>
+<head>
+  <title>BeLogin documentation</title>
+<head>
+<body bgcolor="#ffffff">
+<a name="top"></a>
+<div align="center"><b><font size="5" face="verdana">BeLogin documentation</font></b></div><br>
+<hr>
+<font face="verdana">
+<li><a href="#what">What is BeLogin?</a></li>
+<li><a href="#how">How does BeLogin work?</a>
+<li><a href="#caveats">BeLogin caveats</a></li>
+<li><a href="#req">System requirements</a></li>
+<li><a href="#installation">Installation instructions</a></li>
+<li><a href="#beloginsettings">Using BeLoginSettings</a></li>
+<li><a href="#additional">Additional information</a></li>
+<li><a href="#history">The history of Belogin</a></li>
+<li><a href="#contact">Contacting the author</a></li>
+<li><a href="#legal">Legal disclaimer</a></li>
+</font>
+<hr>
+
+<!-- WHAT -->
+<a name="what"></a>
+<p><b><font size="4" face="verdana">What is BeLogin?</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">BeLogin is an application for limiting access to your BeOS installation.</font></p>
+
+<!-- HOW -->
+<a name="how"></a>
+<p><b><font size="4" face="verdana">How does BeLogin work?</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">BeLogin tries to mimic the login process as seen in Windows or Un*x (and others).<br>
+BeLogin works by making certain that no program (besides those specified) will be run until a correct <br>
+username and password combination has been entered.<br>
+When BeLogin is launched it will bring down the applications which are specified in its <b>Blocked</b> list (usually <br>
+Deskbar, Tracker and Terminal). BeLogin will then displays its Login window. While this Login window is shown<br>
+all application launches are terminated, unless they have been explicitely specified in BeLogins <b>Runnable</b> list<br>
+When a correct username/password combination has been entered BeLogin shuts down, and executes a script. This script<br>
+should contain the applications that needs to be executed upon a valid login (usually Deskbar and Tracker).
+</font></p>
+
+<!-- CAVEATS -->
+<a name="caveats"></a>
+<p><b><font size="4" face="verdana">BeLogin caveats</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">An ordinary Login program, would block all programs at bootup (before any programs are run at all)<br> 
+but that would have to be supported at kernel-level (read: Be needs to implement it).<br>
+BeLogin does not set the user logged in - this is being looked into, but depending on some factors might not be <br>
+included (a lot of programs are not aware of multiple users). <br>
+BeLogin uses the methods supplied by BeOS to detect application launches. These methods only tell when an ordinary<br>
+application is launched and not any of the supplied commandline applications.</font></p><br>
+
+<!-- REQUIREMENTS -->
+<a name="req"></a>
+<p><b><font size="4" face="verdana">System Requirements</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">BeLogin requires BeOS Release 5 as a minimum. It has only been tested on this version.<br>
+This release of BeLogin only includes a binary for Intel x86 and compatible processors. It should compile on PPC though.</font></p>
+
+<!-- INSTALLATION -->
+<a name="installation"></a>
+<p><b><font size="4" face="verdana">Installation instructions</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">
+1. Extract the BeLogin zip file into your application directory (usually /apps/)<br>
+2. Run the BeLoginSettings program to setup Belogin. Use "Administrator" as password (do change the password)<br>
+3. Add BeLogin to your BootScript (located in /boot/home/config/boot/)<br>
+<br>&nbsp;&nbsp;&nbsp;ie. <i>/boot/apps/BeLogin/bin/x86/BeLogin &</i><br>
+<br>
+<i>&nbsp;&nbsp;note: If you have other applications in you bootscript (ie. Pulse) either add the to BeLogins bootscript or add them to<br>&nbsp;&nbsp;the <b>Runnable</b> list. (In the case of Pulse, this would be irrelevant since the Deskbar is shutdown).</i><br><br>
+4. Restart BeOS to see that it is actually working! As you will propably notice both Deskbar and Tracker is launched<br>
+&nbsp;&nbsp;which could enable a fast user to do unwanted stuff. To stop this from happening you need to edit the<br>
+&nbsp;&nbsp;system bootscript (/boot/beos/system/boot/Bootscript). You need to stop the execution of Tracker, the Deskbar<br>
+&nbsp;&nbsp;and/or Terminal. Scroll 3/5 down and find the following lines:
+<pre><i><font color="#666666" face="verdana">
+if launch beos/system/Tracker	# start the Tracker
+then
+	launch beos/apps/Terminal	# no Tracker? try Terminal
+fi
+
+sleep 1
+
+launch beos/system/Deskbar		# launch DeskBar
+</font></i></pre>
+and add a # before each line, thus becoming:
+<pre><i><font color="#666666" face="verdana">
+#if launch beos/system/Tracker	# start the Tracker
+#then
+#	launch beos/apps/Terminal	# no Tracker? try Terminal
+#fi
+#
+#sleep 1
+#
+#launch beos/system/Deskbar		# launch DeskBar
+</font></i></pre>
+5. Done! That wasn't so hard was it? (if you actually think it was, please write me since I would really like<br>
+&nbsp;&nbsp;to know if people find the installation of BeLogin tricky)
+</font></p>
+
+<!-- ADDITIONAL -->
+<a name="additional"></a>
+<p><b><font size="4" face="verdana">Additional information</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">
+BeLogin adds two new sound events to your system (Valid Login, Invalid Login). These may be removed with the <br>
+Remove sound events script<br>
+Belogin has NO backdoors. If you loose you password you can bypass BeLogin, by installing another version<br>
+of BeOS and booting that to remove BeLogin from the System Bootscript.<br>
+Yes... The icon is awfull - please send a better :) .<br>
+BeLogin is distributed under the Gnu General Public License, which is included in the package.
+</font></p>
+
+<!-- BELOGINSETTINGS -->
+<a name="beloginsettings"></a>
+<p><b><font size="4" face="verdana">Using BeLoginSettings</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">
+The user section should be relatively self explanitory (Mail me if you don't think so).<br>
+The <b>Blocked</b> and <b>Runnable</b> views is quite simple to use. Just drag any application into <br>
+the list and they will be added.<br>
+You can also type in your own mime type for an application. If you press the add button while not having<br>
+modified the mimetype line, an "Open file" panel will be shown. Double click an application in the list to remove<br>
+it.<br>
+</font></p>
+
+<!-- HISTORY -->
+<a name="history"></a>
+<p><b><font size="4" face="verdana">The history of Belogin</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana"><pre>
+Ver 1.4.0
+change: Enhanced UI - suggestion by Carlos Hasan  [Brian Matzon]
+fix:    Fixed potential security bug, where a user could (if access is already gained) add a user to BeLoginSettings. Please note 
+        that IF a user somehow gets access to you computer while it's logged in, BeLogin can *easialy* be circumvented. [Brian Matzon]
+fix:    Fixed small bug in login procedure, where an empty username would crash BeLogin/BeLoginSettings (Duh!) [Brian Matzon]
+change: Instead of using a bitmap for logo, we now use a PNG image, which reduces size considerably [Brian Matzon]
+
+Ver 1.3.2
+fix:    Fixed a small bug where editing a user or adding a new user compared the two passwords
+        case insensitive - by Brian Matzon [brian@matzon.dk]
+change: Algorithm used to save the password has been changed to a more secure (MD5) - by Brian Matzon [brian@matzon.dk]
+change: Changed the application vendor tag from Matzon to BeLogin - by Brian Matzon [brian@matzon.dk]
+change: Changed the settings directory from ~/config/Matzon/BeLogin to ~/config/BeLogin - by Brian Matzon [brian@matzon.dk]
+
+Ver 1.3.1
+fix:    Notification of invalid logins is now done asynchronously. (Previously one could open 
+        the Team Monitor during the long pause) - by Vitaliy Mikitchenko [vitviper@bemail.org]
+change: BeLogin is now distributed under the Gnu General Public License
+
+
+Ver 1.3
+change: BeLogin (and BeLoginSettings) is now distributed with source. I do not have the time
+        to continue development of BeLogin and will therefore release it to the public.
+        Since the (simple) encryption rutine is visible in the source, expect some lamer
+        to relase a small proggy to crack passwords.
+        I would like to keep BeLogin on my site, and not have millions of clones around to annoy
+        the end user. I therefore hope that any modifications to the code is submitted back to
+        me (credits will be given!).
+
+Ver 1.2
+add:	The Screensaver is now allowed to run as default (or technically the SceenBlanker)
+add:	The username is now passed as an argument to the login script. (i.e. alert $1)
+fix:    Fixed a silly bug, that said 'Program is allowed to run' when a program on the  
+        Runnable list was executed Duh!
+
+Ver 1.1
+add: 	I have reenabled the Team Monitor quitting. Many thanks to Dianne Kyra Hackborn
+	for the needed info.
+fix:	Better readme/documentation.
+info:	I have decided that it is time to take BeLogin and BeLoginSettings out of beta.
+	I have only had complaints about the Team Monitor rutines, which I too found buggy.
+
+Ver 1.0.3b
+rem:	I have removed the termination of the Team Monitor, since it is *VERY* buggy.
+	I will try and fix it as soon as possible but since it is a hack I cannot guarentee
+	that I will get it up and running again..,
+fix:	While debugging I turned of the termination of applications on the Blocked list.
+	This has been reenabled.
+
+Ver 1.0.2b
+add:	BeLogin now terminates the Team Monitor. Due to some technicalities pressing
+	CTRL + ALT + DEL the second time, causes BeOS to reboot.
+add:	BeLogin now sleeps for Attempts^2 seconds for every invalid login.
+
+Ver 1.0.1b
+fix:	BeLoginSettings now traverses Symlinks 
+add:	BeLoginSettings now accepts multiple dropped/selected files.
+
+Ver. 1.0b
+*Puff*
+</pre>
+</font></p>
+
+<!-- CONTACT -->
+<a name="contact"></a>
+<p><b><font size="4" face="verdana">Contacting the author</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">BeLogin is now hosted on SourceForge, so please go to the 
+messageboard at <a href="http://www.sourceforge.org/projects/belogin/">http://www.sourceforge.org/projects/belogin/</a> and post away :)
+</font></p>
+
+<!-- LEGAL -->
+<a name="legal"></a>
+<p><b><font size="4" face="verdana">Legal Disclaimer</font></b> <a href="#top">top</a></p>
+<p><font size="3" face="verdana">
+BeLogin & BeloginSettings are Copyright &copy; 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.<br>
+<br>
+BeLogin and BeLoginSettings are covered by the  <a href="Gnu%20General%20Public%20License">Gnu General Public License</a>.
+</font></p>
+
+</body>
+</html>

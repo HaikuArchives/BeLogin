@@ -1,0 +1,6 @@
+BeLogin was originally programmed by Brian Matzon. Since BeLogin was opensourced
+a number of people has contributed enhancements to BeLogin. The following is a 
+chronologically ordered list of these people:
+
+Brian Matzon [brian@matzon.dk]
+Vitaliy Mikitchenko [vitviper@bemail.org]

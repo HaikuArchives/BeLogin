@@ -1,0 +1,6 @@
+Think about how to implement internationalization (worthwhile?)
+Implement ColumnListview
+Copy files around to implement multi user? (speed issues, compatibility probs, owner...) (Multiuser by Nathan Whitehorn?)
+Installation program?
+
+General cleanup, especially regarding inheritance. Too many classes are basically the same.
