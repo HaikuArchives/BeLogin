@@ -1,9 +1,10 @@
 The following is a list of changes to BeLogin since it was opensourced.
 
 02/03/2002:
-Enhanced UI - suggestion by Carlos Hasan  [Brian Matzon]
-Fixed potential security bug, where a user could (if access is already gained) add a user to BeLoginSettings. Please note that IF a user somehow gets access to you computer while it's logged in, BeLogin can >easialy< be circumvented. [Brian Matzon]
-Fixed small bug in login procedure, where an empty username would crash BeLogin/BeLoginSettings (Duh!) [Brian Matzon]
+- Enhanced UI - suggestion by Carlos Hasan  [Brian Matzon]
+- Fixed potential security bug, where a user could (if access is already gained) add a user to BeLoginSettings. Please note that IF a user somehow gets access to you computer while it's logged in, BeLogin can *easialy* be circumvented. [Brian Matzon]
+- Fixed small bug in login procedure, where an empty username would crash BeLogin/BeLoginSettings (Duh!) [Brian Matzon]
+- Switched to using png images as logo [Brian Matzon]
 
 02/25/2001:
 - Fixed a small bug where editing a user or adding a new user compared the two passwords
