@@ -10,8 +10,6 @@
 
 #include "BLUsers.h"
 
-#include <stdio.h>
-
 /*
  * ~BLUsers();
  *
@@ -57,8 +55,6 @@ bool BLUsers::IsValid(BString& Username, BString& Password)
 	for(int i=0;i<CountItems();i++)
 	{
 		BLUser* user = ItemAt(i);
-		printf("username: %s, password %s\n", user->GetUsername().String(), user->GetPassword().String());
-		printf("Passed username: %s, and password %s\n", Username.String(), Password.String());
 		if(user->GetUsername().Compare(Username) == 0 && user->GetPassword().Compare(Password) == 0)
 			return true;
 	}
