@@ -122,7 +122,7 @@ void BLSettingsLoginView::MouseUp(BPoint point)
 {
 	//if cursor inside icon rect - display about
 	if(IconExtent->Contains(point)) {
-//		Window()->PostMessage(B_ABOUT_REQUESTED);
+		Window()->PostMessage(B_ABOUT_REQUESTED);
 	} else {
 		BView::MouseUp(point);
 	}

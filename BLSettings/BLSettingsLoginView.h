@@ -11,6 +11,7 @@
 #ifndef BLSETTINGSLOGINVIEW_H
 #define BLSETTINGSLOGINVIEW_H
 
+#include <Window.h>
 #include <View.h>
 #include <TextControl.h>
 #include <Button.h>
