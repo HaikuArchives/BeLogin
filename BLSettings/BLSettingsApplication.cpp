@@ -31,7 +31,7 @@ BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
 		
 		/* Add an Administrator */
 		BString Username("Administrator");
-		BString Password(Settings->MD5Encrypt("Administrator"));
+		BString Password(Settings->MD5Hash("Administrator"));
 		BLUser* User = new BLUser(Username, Password);
 		Settings->GetUsers()->AddItem(User);
 
@@ -58,14 +58,14 @@ BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
 	}
 
 	/* Create and show the window in the center of the screen */	
-	float Width = 260.0;
+	float Width = 270.0;
 	
 	/* 
 	 * If font size is larger that 9 (the smallest) add one pixel to window height
 	 * for each pixel larger than 9
 	 * This window is 20 px smaller than BeLogin since there's no Menu
 	 */
-	float Height = 115.0 + (int)be_plain_font->Size() % 9;
+	float Height = 145.0 + (int)be_plain_font->Size() % 9;
 	
 	/* Get the resolution of the main screen */
 	BRect Desktop = BScreen(B_MAIN_SCREEN_ID).Frame();
