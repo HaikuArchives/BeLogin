@@ -18,8 +18,6 @@
 BLSettingsLoginView::BLSettingsLoginView(BRect canvas, BLSettings* bls)
 : BView(canvas, "loginview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW), Settings(bls)
 {
-	if(Icon != NULL)
-		delete Icon;
 }
 
 /*
@@ -29,8 +27,10 @@ BLSettingsLoginView::BLSettingsLoginView(BRect canvas, BLSettings* bls)
  */
 BLSettingsLoginView::~BLSettingsLoginView()
 {
+	if(Icon != NULL) {
+		delete Icon;
+	}
 }
-
 /*
  * void AttachedToWindow();
  *
