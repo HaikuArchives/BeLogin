@@ -97,14 +97,14 @@ bool BLSettingsWindow::QuitRequested()
 				return false;
 			}
 			
-			/* Yes */
+			/* Don't save */
 			case 1:
 			{
 				be_app->PostMessage(B_QUIT_REQUESTED);
 				return true;
 			}
 			
-			/* No */
+			/* Save */
 			case 2:
 			{
 				Settings->Save();
