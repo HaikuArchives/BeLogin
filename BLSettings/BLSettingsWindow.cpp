@@ -1,20 +1,20 @@
 /*
-*
-* -=BLSettingsWindow=-
-* This is the main window, which is shown upon a login
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsWindow=-
+ * This is the main window, which is shown upon a login
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsWindow.h"
 
 /*
-* BLSettingsWindow(BRect frame);
-*
-* The constructor of the window adds the child to the view chain
-*/
+ * BLSettingsWindow(BRect frame);
+ *
+ * The constructor of the window adds the child to the view chain
+ */
 BLSettingsWindow::BLSettingsWindow(BRect frame, BLSettings* bls)
 : BWindow(frame, SETTINGS_TITLE_WINDOW, B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE), Settings(bls)
 {
@@ -67,19 +67,19 @@ BLSettingsWindow::BLSettingsWindow(BRect frame, BLSettings* bls)
 	AddShortcut('Q', B_COMMAND_KEY, new BMessage(B_QUIT_REQUESTED));
 }
 /*
-* ~BLSettingsWindow();
-*
-* Currently void
-*/
+ * ~BLSettingsWindow();
+ *
+ * Currently void
+ */
 BLSettingsWindow::~BLSettingsWindow()
 {
 }
 
 /*
-* bool QuitRequested();
-* 
-* B_QUIT_REQUESTED was send. Tell the BApplication that we want out...
-*/
+ * bool QuitRequested();
+ * 
+ * B_QUIT_REQUESTED was send. Tell the BApplication that we want out...
+ */
 bool BLSettingsWindow::QuitRequested()
 {
 	bool modified = Settings->HasBeenModified();
@@ -118,11 +118,11 @@ bool BLSettingsWindow::QuitRequested()
 }
 
 /*
-* void MessageReceived(BMessage* Msg);
-*
-* This is were all BMessages for BeLogin is comming through
-* Sort them out, and redirect them to their approbiate place
-*/
+ * void MessageReceived(BMessage* Msg);
+ *
+ * This is were all BMessages for BeLogin is comming through
+ * Sort them out, and redirect them to their approbiate place
+ */
 void BLSettingsWindow::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)

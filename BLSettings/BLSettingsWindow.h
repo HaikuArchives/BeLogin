@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsWindow=-
-* This is the main window, which is shown upon a login
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsWindow=-
+ * This is the main window, which is shown upon a login
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSWINDOW_H
 #define BLSETTINGSWINDOW_H

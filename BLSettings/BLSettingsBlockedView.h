@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsBlockedView=-
-* This is the blocked view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsBlockedView=-
+ * This is the blocked view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSBLOCKEDVIEW_H
 #define BLSETTINGSBLOCKEDVIEW_H

@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsAboutView=-
-* This is the Settings About View
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsAboutView=-
+ * This is the Settings About View
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSABOUTVIEW_H
 #define BLSETTINGSABOUTVIEW_H

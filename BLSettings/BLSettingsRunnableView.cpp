@@ -1,19 +1,19 @@
 /*
-*
-* -=BLSettingsRunnableView=-
-* This is the Runnable view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsRunnableView=-
+ * This is the Runnable view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsRunnableView.h"
 
 /*
-* BLSettingsRunnableView(BRect canvas);
-*
-*/
+ * BLSettingsRunnableView(BRect canvas);
+ *
+ */
 BLSettingsRunnableView::BLSettingsRunnableView(BRect canvas, BLSettings* bls)
 : BView(canvas, "runnableview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW), Settings(bls), FilePanel(NULL)
 {
@@ -63,10 +63,10 @@ BLSettingsRunnableView::BLSettingsRunnableView(BRect canvas, BLSettings* bls)
 }
 
 /*
-* ~BLSettingsRunnableView();
-* 
-* The destructor is currently void
-*/
+ * ~BLSettingsRunnableView();
+ * 
+ * The destructor is currently void
+ */
 BLSettingsRunnableView::~BLSettingsRunnableView()
 {
 	if(FilePanel != NULL)
@@ -74,11 +74,11 @@ BLSettingsRunnableView::~BLSettingsRunnableView()
 }
 
 /*
-* void AttachedToWindow();
-*
-* The view has now been attached to the window.
-* Now do all the initialization stuff
-*/
+ * void AttachedToWindow();
+ *
+ * The view has now been attached to the window.
+ * Now do all the initialization stuff
+ */
 void BLSettingsRunnableView::AttachedToWindow()
 {
 	ListView->SetTarget(this);
@@ -86,9 +86,9 @@ void BLSettingsRunnableView::AttachedToWindow()
 }
 
 /*
-* void MessageReceived(BMessage* Msg);
-*
-*/
+ * void MessageReceived(BMessage* Msg);
+ *
+ */
 void BLSettingsRunnableView::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)

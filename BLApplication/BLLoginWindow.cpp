@@ -1,14 +1,14 @@
 /*
-*
-* -=BLLoginWindow=-
-* This is the Main window. It contains the Login view too.
-* The main window adds a menubar to the top. All BMessages go through
-* this window.
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLLoginWindow=-
+ * This is the Main window. It contains the Login view too.
+ * The main window adds a menubar to the top. All BMessages go through
+ * this window.
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLLoginWindow.h"
 #include "iostream.h"
@@ -18,12 +18,12 @@
 const BMessage * kReenableMsg = new BMessage(BL_REENABLE_LOGIN);
 
 /*
-* BLLoginWindow(BRect frame, BLSettings* bls);
-*
-* The constructor of the window adds the child to the view chain
-* and sets its own Settings to the one passed by parameter
-* The Aboutwindow is nulled too.
-*/
+ * BLLoginWindow(BRect frame, BLSettings* bls);
+ *
+ * The constructor of the window adds the child to the view chain
+ * and sets its own Settings to the one passed by parameter
+ * The Aboutwindow is nulled too.
+ */
 BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
 : BWindow(frame, TITLE_LOGINWINDOW, B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_NOT_CLOSABLE), Settings(bls), AboutWindow(NULL), Exiting(false), Attempts(1)
 {
@@ -55,9 +55,9 @@ BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
 	Unlock();
 	
 	/* 
-	* Make the views size equal to that of the windows bounds minus the 
-	* height of the menubar 
-	*/
+	 * Make the views size equal to that of the windows bounds minus the 
+	 * height of the menubar 
+	 */
 	Rect = Bounds();
 	Rect.InsetBy(0, MenuBar->Bounds().Height()/2);
 	Rect.OffsetTo(0, MenuBar->Bounds().Height());
@@ -68,9 +68,9 @@ BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
 	Unlock();
 
 	/* 
-	* tell the BRoster to send us messages about launching of apps 
-	* The message will arrive at MessageReceived as a B_SOME_APP_LAUNCHED
-	*/
+	 * tell the BRoster to send us messages about launching of apps 
+	 * The message will arrive at MessageReceived as a B_SOME_APP_LAUNCHED
+	 */
 	BMessenger msgr(this);
 	be_roster->StartWatching(msgr, B_REQUEST_LAUNCHED | B_SOME_APP_ACTIVATED);
 	
@@ -78,19 +78,19 @@ BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
 }
 
 /*
-* ~BLLoginWindow();
-*
-* Currently void
-*/
+ * ~BLLoginWindow();
+ *
+ * Currently void
+ */
 BLLoginWindow::~BLLoginWindow()
 {
 }
 
 /*
-* bool QuitRequested();
-* 
-* B_QUIT_REQUESTED was send. Tell the BApplication that we want out...
-*/
+ * bool QuitRequested();
+ * 
+ * B_QUIT_REQUESTED was send. Tell the BApplication that we want out...
+ */
 bool BLLoginWindow::QuitRequested()
 {
 	be_app->PostMessage(B_QUIT_REQUESTED);
@@ -98,11 +98,11 @@ bool BLLoginWindow::QuitRequested()
 }
 
 /*
-* void MessageReceived(BMessage* Msg);
-*
-* This is were all BMessages for BeLogin is comming through
-* Sort them out, and redirect them to their approbiate place
-*/
+ * void MessageReceived(BMessage* Msg);
+ *
+ * This is were all BMessages for BeLogin is comming through
+ * Sort them out, and redirect them to their approbiate place
+ */
 void BLLoginWindow::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -163,7 +163,7 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 		{
 			/* Get Username and Password from view */
 			BString Username(View->GetUsername());
-			BString Password(View->GetPassword());
+			BString Password(Settings->MD5Encrypt(View->GetPassword()));
 			
 			/* Check the combination */
 			if(Settings->GetUsers()->IsValid(Username, Password))
@@ -305,17 +305,12 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 			break;
 		}
 
-		/* The roster detected the activation of an app 
-		*  Since the Team Monitor is the property of the input server
-		*  no B_SOME_APP_LAUNCHED is send. Therefore the B_SOME_APP_ACTIVATED
-		*/
+		/*  The roster detected the activation of an app 
+		 *  Since the Team Monitor is the property of the input server
+		 *  no B_SOME_APP_LAUNCHED is send. Therefore the B_SOME_APP_ACTIVATED
+		 */
 		case B_SOME_APP_ACTIVATED:
 		{
-//			if(Exiting == true)
-//			{
-//				break;
-//			}
-			
 			BString strSignature;
 
 			/* Retreive the application signature */
@@ -345,9 +340,9 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 					if(msgReply.FindMessenger("result", &msng) == B_OK)
 					{
 						/* 
-						* Send the cancel command 
-						* Thanks to Dianne Kyra Hackborn for the command 
-						*/
+						 * Send the cancel command 
+						 * Thanks to Dianne Kyra Hackborn for the command 
+						 */
 						msng.SendMessage(QUIT_TEAM_MONITOR);
 						
 						/* Get some info om me, and activate BeLogin, based on the team info */
@@ -369,13 +364,13 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 }
 
 /*
-* void ApplicationLaunch(BMessage* Msg);
-*
-* This is where we check to see if an application is allowed to run
-* If it isn't (checked against the BLRunnable list) it is killed.
-* The killing process first sends a friendly shutdown request
-* If the app is alive 30000 uS later, its team(threads) is killed.
-*/
+ * void ApplicationLaunch(BMessage* Msg);
+ *
+ * This is where we check to see if an application is allowed to run
+ * If it isn't (checked against the BLRunnable list) it is killed.
+ * The killing process first sends a friendly shutdown request
+ * If the app is alive 30000 uS later, its team(threads) is killed.
+ */
 void BLLoginWindow::ApplicationLaunch(BMessage* Msg)
 {
 	const char* signature;
@@ -406,10 +401,10 @@ void BLLoginWindow::ApplicationLaunch(BMessage* Msg)
 }
 
 /*
-* void TerminateApplications();
-*
-* Terminate all applications in the BLBlocked list
-*/
+ * void TerminateApplications();
+ *
+ * Terminate all applications in the BLBlocked list
+ */
 void BLLoginWindow::TerminateApplications()
 {
 	BLBlocked* blocked = Settings->GetBlocked(); 

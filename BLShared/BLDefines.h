@@ -1,11 +1,11 @@
 /*
-*
-* -=BLDefines=-
-* This is simply the definitions file.
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*/
+ *
+ * -=BLDefines=-
+ * This is simply the definitions file.
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ */
 
 #ifndef BL_INCLUDES
 #define BL_INCLUDES
@@ -36,8 +36,8 @@
 #define QUIT_TEAM_MONITOR							'Dsab'														// BLLoginWindow
 #define BL_REENABLE_LOGIN							'renl'														// BLLoginWindow
 
-const char VERSION[] 								= "BeLogin 1.3.1";										// Miscellaneous
-const char SETTINGS_VERSION[] 					= "BeLoginSettings 1.3.1";								// BLSettingsAboutView
+const char VERSION[] 								= "BeLogin 1.3.2";										// Miscellaneous
+const char SETTINGS_VERSION[] 					= "BeLoginSettings 1.3.2";								// BLSettingsAboutView
 const char TITLE_LOGINWINDOW[] 					= "BeLogin";												// BLLoginWindow
 const char SETTINGS_TITLE_WINDOW[] 				= "BeLoginSettings";										// BLSettingsWindow
 const char SETTINGS_TITLE_LOGIN_WINDOW[] 		= "BeLoginSettings - Login";							// BLSettingsLoginWindow

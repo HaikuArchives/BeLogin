@@ -1,40 +1,40 @@
 /*
-*
-* -=BLLoginView=-
-* This is the login view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLLoginView=-
+ * This is the login view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLLoginView.h"
 
 /*
-* BLLoginView(BRect canvas, BLSettings* bls);
-*
-* Void!
-*/
+ * BLLoginView(BRect canvas, BLSettings* bls);
+ *
+ * Void!
+ */
 BLLoginView::BLLoginView(BRect canvas, BLSettings* bls)
 : BView(canvas, "Loginview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW), Settings(bls)
 {
 }
 
 /*
-* ~BLLoginView();
-* 
-* The destructor is currently void
-*/
+ * ~BLLoginView();
+ * 
+ * The destructor is currently void
+ */
 BLLoginView::~BLLoginView()
 {
 }
 
 /*
-* void AttachedToWindow();
-*
-* The view has now been attached to the window.
-* Now do all the initialization stuff
-*/
+ * void AttachedToWindow();
+ *
+ * The view has now been attached to the window.
+ * Now do all the initialization stuff
+ */
 void BLLoginView::AttachedToWindow()
 {
 	SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));

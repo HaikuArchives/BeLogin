@@ -1,14 +1,14 @@
 /*
-*
-* -=BLLoginWindow=-
-* This is the Main window. It contains the Login view too.
-* The main window adds a menubar to the top. All BMessages go through
-* this window.
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLLoginWindow=-
+ * This is the Main window. It contains the Login view too.
+ * The main window adds a menubar to the top. All BMessages go through
+ * this window.
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLLOGINWINDOW_H
 #define BLLOGINWINDOW_H

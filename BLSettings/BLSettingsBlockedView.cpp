@@ -1,19 +1,19 @@
 /*
-*
-* -=BLSettingsBlockedView=-
-* This is the blocked view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsBlockedView=-
+ * This is the blocked view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsBlockedView.h"
 
 /*
-* BLSettingsBlockedView(BRect canvas);
-*
-*/
+ * BLSettingsBlockedView(BRect canvas);
+ *
+ */
 BLSettingsBlockedView::BLSettingsBlockedView(BRect canvas, BLSettings* bls)
 : BView(canvas, "blockedview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW), Settings(bls), FilePanel(NULL)
 {
@@ -63,10 +63,10 @@ BLSettingsBlockedView::BLSettingsBlockedView(BRect canvas, BLSettings* bls)
 }
 
 /*
-* ~BLSettingsBlockedView();
-* 
-* The destructor is currently void
-*/
+ * ~BLSettingsBlockedView();
+ * 
+ * The destructor is currently void
+ */
 BLSettingsBlockedView::~BLSettingsBlockedView()
 {
 	if(FilePanel != NULL)
@@ -74,11 +74,11 @@ BLSettingsBlockedView::~BLSettingsBlockedView()
 }
 
 /*
-* void AttachedToWindow();
-*
-* The view has now been attached to the window.
-* Now do all the initialization stuff
-*/
+ * void AttachedToWindow();
+ *
+ * The view has now been attached to the window.
+ * Now do all the initialization stuff
+ */
 void BLSettingsBlockedView::AttachedToWindow()
 {
 	ListView->SetTarget(this);
@@ -86,9 +86,9 @@ void BLSettingsBlockedView::AttachedToWindow()
 }
 
 /*
-* void MessageReceived(BMessage* Msg);
-*
-*/
+ * void MessageReceived(BMessage* Msg);
+ *
+ */
 void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -167,16 +167,6 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 				Settings->GetBlocked()->HasBeenModified(true);
 				txtSignature->SetText("application/");
 
-/*				BEntry entry(&ref, true);
-				char name[B_FILE_NAME_LENGTH];
-				if(entry.GetName(name) == B_OK)
-				{
-					Signature.Append(" (");
-					Signature.Append(name);
-					Signature.Append(")");
-				}
-
-*/
 				/* Add it to the listview */
 				ListView->AddItem(new BStringItem(Signature.String()));
 			}			
@@ -226,14 +216,6 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 							Settings->GetBlocked()->HasBeenModified(true);
 							txtSignature->SetText("application/");
 
-/*	  						char name[B_FILE_NAME_LENGTH];
-	  						if(entry.GetName(name) == B_OK)
-	  						{
-	  							Signature.Append(" (");
-	  							Signature.Append(name);
-	  							Signature.Append(")");
-	  						}
-*/
 							ListView->AddItem(new BStringItem(Signature.String()));
 						}
 					}
@@ -285,14 +267,6 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 							Settings->GetBlocked()->HasBeenModified(true);
 							txtSignature->SetText("application/");
 							
-/*	  						char name[B_FILE_NAME_LENGTH];
-	  						if(entry.GetName(name) == B_OK)
-	  						{
-	  							Signature.Append(" (");
-	  							Signature.Append(name);
-	  							Signature.Append(")");
-	  						}
-*/
 							/* Add it to the listview */
 							ListView->AddItem(new BStringItem(Signature.String()));
 						}

@@ -1,12 +1,12 @@
 /*
-*
-* -=BLAboutView=-
-* This is the About View
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLAboutView=-
+ * This is the About View
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLABOUTVIEW_H
 #define BLABOUTVIEW_H

@@ -1,21 +1,21 @@
 /*
-*
-* -=BLSettingsLoginWindow=-
-* This is the Login window.
-* It is needed to validate an user.
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsLoginWindow=-
+ * This is the Login window.
+ * It is needed to validate an user.
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsLoginWindow.h"
 
 /*
-* BLSettingsLoginWindow(BRect frame);
-*
-* The constructor of the window adds the child to the view chain
-*/
+ * BLSettingsLoginWindow(BRect frame);
+ *
+ * The constructor of the window adds the child to the view chain
+ */
 BLSettingsLoginWindow::BLSettingsLoginWindow(BRect frame, BLSettings* bls)
 : BWindow(frame, SETTINGS_TITLE_LOGIN_WINDOW, B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE), Settings(bls)
 {
@@ -31,19 +31,19 @@ BLSettingsLoginWindow::BLSettingsLoginWindow(BRect frame, BLSettings* bls)
 }
 
 /*
-* ~BLSettingsLoginWindow();
-*
-* Currently void
-*/
+ * ~BLSettingsLoginWindow();
+ *
+ * Currently void
+ */
 BLSettingsLoginWindow::~BLSettingsLoginWindow()
 {
 }
 
 /*
-* bool QuitRequested();
-* 
-* B_QUIT_REQUESTED was send. Tell the BApplication that we want out...
-*/
+ * bool QuitRequested();
+ * 
+ * B_QUIT_REQUESTED was send. Tell the BApplication that we want out...
+ */
 bool BLSettingsLoginWindow::QuitRequested()
 {
 	be_app->PostMessage(B_QUIT_REQUESTED);
@@ -51,11 +51,11 @@ bool BLSettingsLoginWindow::QuitRequested()
 }
 
 /*
-* void MessageReceived(BMessage* Msg);
-*
-* This is were all BMessages for BeLogin is comming through
-* Sort them out, and redirect them to their approbiate place
-*/
+ * void MessageReceived(BMessage* Msg);
+ *
+ * This is were all BMessages for BeLogin is comming through
+ * Sort them out, and redirect them to their approbiate place
+ */
 void BLSettingsLoginWindow::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -64,7 +64,7 @@ void BLSettingsLoginWindow::MessageReceived(BMessage* Msg)
 		{
 			/* Get Username and Password from view */
 			BString Username(View->GetUsername());
-			BString Password(View->GetPassword());
+			BString Password(Settings->MD5Encrypt(View->GetPassword()));
 			
 			/* Check the combination */
 			if(Settings->GetUsers()->IsAdministrator(Username, Password))

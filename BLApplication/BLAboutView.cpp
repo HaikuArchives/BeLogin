@@ -1,23 +1,23 @@
 /*
-*
-* -=BLAboutView=-
-* This is the About View
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLAboutView=-
+ * This is the About View
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLAboutView.h"
 
 /*
-* BLAboutView(BRect canvas);
-*
-* This is the Aboutviews constructor.
-* The correct drawing mode is set, and the AboutPicture is loaded
-* The size of the AboutPicture and the size of the view is cached
-* for performance
-*/
+ * BLAboutView(BRect canvas);
+ *
+ * This is the Aboutviews constructor.
+ * The correct drawing mode is set, and the AboutPicture is loaded
+ * The size of the AboutPicture and the size of the view is cached
+ * for performance
+ */
 BLAboutView::BLAboutView(BRect canvas)
 : BView(canvas, "aboutview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW | B_NAVIGABLE), AboutPicture(NULL)
 {
@@ -35,10 +35,10 @@ BLAboutView::BLAboutView(BRect canvas)
 }
 
 /*
-* ~BLAboutView();
-* 
-* The About views destructor simply deletes the AboutPicture 
-*/
+ * ~BLAboutView();
+ * 
+ * The About views destructor simply deletes the AboutPicture 
+ */
 BLAboutView::~BLAboutView()
 {
 	if(AboutPicture != NULL)
@@ -46,11 +46,11 @@ BLAboutView::~BLAboutView()
 }
 
 /*
-* void Draw(BRect Region);
-*
-* This is the draw handler for the view
-* The AboutPicture is drawn and the version is written on top 
-*/
+ * void Draw(BRect Region);
+ *
+ * This is the draw handler for the view
+ * The AboutPicture is drawn and the version is written on top 
+ */
 void BLAboutView::Draw(BRect Region)
 {
 	if(AboutPicture != NULL)
@@ -68,13 +68,13 @@ void BLAboutView::Draw(BRect Region)
 }
 
 /*
-* void KeyDown(const char *key, int32 numBytes);
-*
-* This is the key down handler.
-* it is used to test for the escape key or the enter key.
-* If one of these two are pressed, post a B_QUIT_REQUESTED
-* message to the window.
-*/
+ * void KeyDown(const char *key, int32 numBytes);
+ *
+ * This is the key down handler.
+ * it is used to test for the escape key or the enter key.
+ * If one of these two are pressed, post a B_QUIT_REQUESTED
+ * message to the window.
+ */
 void BLAboutView::KeyDown(const char *key, int32 numBytes)
 {
 	switch(key[0])
@@ -93,12 +93,12 @@ void BLAboutView::KeyDown(const char *key, int32 numBytes)
 }
 
 /*
-* void KeyUp(const char *key, int32 numBytes); 
-*
-* This is the Key Up handler.
-* It is needed for the testing of B_COMMAND_KEY + 'w'
-* This event is only send as a Key up, and not as Key Down
-*/
+ * void KeyUp(const char *key, int32 numBytes); 
+ *
+ * This is the Key Up handler.
+ * It is needed for the testing of B_COMMAND_KEY + 'w'
+ * This event is only send as a Key up, and not as Key Down
+ */
 void BLAboutView::KeyUp(const char *key, int32 numBytes)
 {
 	switch(key[0])
@@ -115,13 +115,8 @@ void BLAboutView::KeyUp(const char *key, int32 numBytes)
 				int32 modifier;
 				msg->FindInt32("modifiers", &modifier);
 				
-				/* Hmm... Correct way? */
-				if(modifier > B_SHIFT_KEY && modifier < B_CONTROL_KEY ||
-					modifier > B_RIGHT_SHIFT_KEY && modifier < B_RIGHT_COMMAND_KEY ||
-					modifier > B_LEFT_COMMAND_KEY && modifier < B_LEFT_OPTION_KEY)
-				{
-						Window()->PostMessage(B_QUIT_REQUESTED);
-				}
+				if((modifier & B_COMMAND_KEY) != 0) 
+					Window()->PostMessage(B_QUIT_REQUESTED);
 			}
 			break;
 		}
@@ -133,10 +128,10 @@ void BLAboutView::KeyUp(const char *key, int32 numBytes)
 }
 
 /*
-* void LoadLogo();
-*
-* Load the bitmap resource from the resource part of the binary file
-*/
+ * void LoadLogo();
+ *
+ * Load the bitmap resource from the resource part of the binary file
+ */
 void BLAboutView::LoadLogo()
 {
 	/* Use translator utils to load the picture */

@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsEditUserWindow=-
-* This is the window for the Edit user view
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsEditUserWindow=-
+ * This is the window for the Edit user view
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSEDITUSERWINDOW_H
 #define BLSETTINGSEDITUSERWINDOW_H

@@ -1,13 +1,13 @@
 /*
-*
-* -=BLSettingsLoginWindow=-
-* This is the Login window.
-* It is needed to validate an user.*
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsLoginWindow=-
+ * This is the Login window.
+ * It is needed to validate an user.
+ * 
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSLOGINWINDOW_H
 #define BLSETTINGSLOGINWINDOW_H

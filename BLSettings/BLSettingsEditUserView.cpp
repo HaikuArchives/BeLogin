@@ -1,41 +1,41 @@
 /*
-*
-* -=BLSettingsAddUserView=-
-* This is the Edit User View
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsAddUserView=-
+ * This is the Edit User View
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsEditUserView.h"
 
 /*
-* BLSettingsEditUserView(BRect canvas, BLSettings* bls, BString* user);
-* 
-* The constructor, initializes some parameters...
-*
-*/
+ * BLSettingsEditUserView(BRect canvas, BLSettings* bls, BString* user);
+ * 
+ * The constructor, initializes some parameters...
+ *
+ */
 BLSettingsEditUserView::BLSettingsEditUserView(BRect canvas, BLSettings* bls, BString* user)
 : BView(canvas, "edituserview", B_FOLLOW_ALL_SIDES, B_NAVIGABLE), Settings(bls), Username(user)
 {
 }
 
 /*
-* ~BLSettingsAddUserView();
-* 
-* Void
-*/
+ * ~BLSettingsAddUserView();
+ * 
+ * Void
+ */
 BLSettingsEditUserView::~BLSettingsEditUserView()
 {
 }
 
 /*
-*
-* AttachedToWindow();
-*
-* Initialize the view, and place it's buttons and stuff
-*/
+ *
+ * AttachedToWindow();
+ *
+ * Initialize the view, and place it's buttons and stuff
+ */
 void BLSettingsEditUserView::AttachedToWindow()
 {
 	/* Get the user, the user wants to edit */
@@ -125,10 +125,10 @@ void BLSettingsEditUserView::AttachedToWindow()
 }
 
 /* 
-* MessageReceived(BMessage* Msg);
-*
-* Message handling
-*/
+ * MessageReceived(BMessage* Msg);
+ *
+ * Message handling
+ */
 void BLSettingsEditUserView::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -160,7 +160,7 @@ void BLSettingsEditUserView::MessageReceived(BMessage* Msg)
 			}
 			
 			/* Validate correct Old Password */
-			if(User->GetPassword().Compare(txtOldPassword->Text()) != 0)
+			if(User->GetPassword().Compare(Settings->MD5Encrypt(txtOldPassword->Text())) != 0)
 			{
 				(new BAlert("Error", "Incorrect old password", "Ok"))->Go();
 				txtOldPassword->MakeFocus();
@@ -179,7 +179,7 @@ void BLSettingsEditUserView::MessageReceived(BMessage* Msg)
 				txtPassword->MakeFocus();
 				break;
 			} 
-			if(password.ICompare(cpassword) != 0)
+			if(password.Compare(cpassword) != 0)
 			{ 
 				(new BAlert("Error", "Password and Confirmed password differ", "Ok"))->Go();
 				txtPassword->MakeFocus();
@@ -188,7 +188,7 @@ void BLSettingsEditUserView::MessageReceived(BMessage* Msg)
 				
 			/* User verified. Add the user to the list */
 			BString newUsername(txtUsername->Text());
-			BString newPassword(txtPassword->Text());
+			BString newPassword(Settings->MD5Encrypt(txtPassword->Text()));
 			User->SetUsername(newUsername);
 			User->SetPassword(newPassword);
 			User->HasBeenModified(true);

@@ -1,12 +1,12 @@
 /*
-*
-* -=BLLoginView=-
-* This is the login view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLLoginView=- 
+ * This is the login view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLLOGINVIEW_H
 #define BLLOGINVIEW_H

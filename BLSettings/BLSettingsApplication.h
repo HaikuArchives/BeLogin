@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsApplication=-
-* This is the main class. It is a requirement for all BeOS Applications
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsApplication=-
+ * This is the main class. It is a requirement for all BeOS Applications
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSAPPLICATION_H
 #define BLSETTINGSAPPLICATION_H

@@ -1,23 +1,23 @@
 /*
-*
-* -=BLSettingsAboutView=-
-* This is the Settings About View
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsAboutView=-
+ * This is the Settings About View
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsAboutView.h"
 
 /*
-* BLAboutView(BRect canvas);
-*
-* This is the Aboutviews constructor.
-* The correct drawing mode is set, and the AboutPicture is loaded
-* The size of the AboutPicture and the size of the view is cached
-* for performance
-*/
+ * BLAboutView(BRect canvas);
+ *
+ * This is the Aboutviews constructor.
+ * The correct drawing mode is set, and the AboutPicture is loaded
+ * The size of the AboutPicture and the size of the view is cached
+ * for performance
+ */
 BLSettingsAboutView::BLSettingsAboutView(BRect canvas)
 : BView(canvas, "aboutview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW | B_NAVIGABLE), AboutPicture(NULL)
 {
@@ -35,10 +35,10 @@ BLSettingsAboutView::BLSettingsAboutView(BRect canvas)
 }
 
 /*
-* ~BLAboutView();
-* 
-* The About views destructor simply deletes the AboutPicture 
-*/
+ * ~BLAboutView();
+ * 
+ * The About views destructor simply deletes the AboutPicture 
+ */
 BLSettingsAboutView::~BLSettingsAboutView()
 {
 	if(AboutPicture != NULL)
@@ -46,11 +46,11 @@ BLSettingsAboutView::~BLSettingsAboutView()
 }
 
 /*
-* void Draw(BRect Region);
-*
-* This is the draw handler for the view
-* The AboutPicture is drawn and the version is written on top 
-*/
+ * void Draw(BRect Region);
+ *
+ * This is the draw handler for the view
+ * The AboutPicture is drawn and the version is written on top 
+ */
 void BLSettingsAboutView::Draw(BRect Region)
 {
 	if(AboutPicture != NULL)
@@ -68,13 +68,13 @@ void BLSettingsAboutView::Draw(BRect Region)
 }
 
 /*
-* void KeyDown(const char *key, int32 numBytes);
-*
-* This is the key down handler.
-* it is used to test for the escape key or the enter key.
-* If one of these two are pressed, post a B_QUIT_REQUESTED
-* message to the window.
-*/
+ * void KeyDown(const char *key, int32 numBytes);
+ *
+ * This is the key down handler.
+ * it is used to test for the escape key or the enter key.
+ * If one of these two are pressed, post a B_QUIT_REQUESTED
+ * message to the window.
+ */
 void BLSettingsAboutView::KeyDown(const char *key, int32 numBytes)
 {
 	switch(key[0])
@@ -93,12 +93,12 @@ void BLSettingsAboutView::KeyDown(const char *key, int32 numBytes)
 }
 
 /*
-* void KeyUp(const char *key, int32 numBytes); 
-*
-* This is the Key Up handler.
-* It is needed for the testing of B_COMMAND_KEY + 'w'
-* This event is only send as a Key up, and not as Key Down
-*/
+ * void KeyUp(const char *key, int32 numBytes); 
+ *
+ * This is the Key Up handler.
+ * It is needed for the testing of B_COMMAND_KEY + 'w'
+ * This event is only send as a Key up, and not as Key Down
+ */
 void BLSettingsAboutView::KeyUp(const char *key, int32 numBytes)
 {
 	switch(key[0])
@@ -116,9 +116,7 @@ void BLSettingsAboutView::KeyUp(const char *key, int32 numBytes)
 				msg->FindInt32("modifiers", &modifier);
 				
 				if((modifier & B_COMMAND_KEY) != 0)
-				{
-						Window()->PostMessage(B_QUIT_REQUESTED);
-				}
+					Window()->PostMessage(B_QUIT_REQUESTED);
 			}
 			break;
 		}
@@ -130,10 +128,10 @@ void BLSettingsAboutView::KeyUp(const char *key, int32 numBytes)
 }
 
 /*
-* void LoadLogo();
-*
-* Load the bitmap resource from the resource part of the binary file
-*/
+ * void LoadLogo();
+ *
+ * Load the bitmap resource from the resource part of the binary file
+ */
 void BLSettingsAboutView::LoadLogo()
 {
 	/* Use translator utils to load the picture */

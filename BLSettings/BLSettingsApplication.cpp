@@ -1,24 +1,24 @@
 /*
-*
-* -=BLSettingsApplication=-
-* This is the main class. It is a requirement for all BeOS Applications
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsApplication=-
+ * This is the main class. It is a requirement for all BeOS Applications
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsApplication.h"
 
 /*
-* BLApplication(BLSettings* bls);
-*
-* The BLApplications constructor.
-* load the settings and test the validity of the settings.
-* Then construct and show the window
-*/
+ * BLApplication(BLSettings* bls);
+ *
+ * The BLApplications constructor.
+ * load the settings and test the validity of the settings.
+ * Then construct and show the window
+ */
 BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
-: BApplication("application/x-vnd.Matzon-BeLoginSettings"), Settings(bls)
+: BApplication("application/x-vnd.BeLogin-BeLoginSettings"), Settings(bls)
 {
 	status_t settingserr = Settings->Load();
 	if(settingserr == BL_LOAD_ERROR)
@@ -31,7 +31,7 @@ BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
 		
 		/* Add an Administrator */
 		BString Username("Administrator");
-		BString Password("Administrator");
+		BString Password(Settings->MD5Encrypt("Administrator"));
 		BLUser* User = new BLUser(Username, Password);
 		Settings->GetUsers()->AddItem(User);
 
@@ -61,10 +61,10 @@ BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
 	float Width = 260.0;
 	
 	/* 
-	* If font size is larger that 9 (the smallest) add one pixel to window height
-	* for each pixel larger than 9
-	* This window is 20 px smaller than BeLogin since there's no Menu
-	*/
+	 * If font size is larger that 9 (the smallest) add one pixel to window height
+	 * for each pixel larger than 9
+	 * This window is 20 px smaller than BeLogin since there's no Menu
+	 */
 	float Height = 115.0 + (int)be_plain_font->Size() % 9;
 	
 	/* Get the resolution of the main screen */
@@ -80,22 +80,22 @@ BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
 }
 
 /*
-* ~BLApplication();
-*
-* The BLApplications destructor. Currently void
-*/
+ * ~BLApplication();
+ *
+ * The BLApplications destructor. Currently void
+ */
 BLSettingsApplication::~BLSettingsApplication()
 {
 }
 
 /*
-* MessageReceived(BMessage* Msg);
-*
-* This is the message handler for the application
-* It has been overwritten, to catch the BL_LOGIN_SUCCESSFULL
-* If one such arrives, Quit the login window, and show the
-* "real" window...
-*/
+ * MessageReceived(BMessage* Msg);
+ *
+ * This is the message handler for the application
+ * It has been overwritten, to catch the BL_LOGIN_SUCCESSFULL
+ * If one such arrives, Quit the login window, and show the
+ * "real" window...
+ */
 void BLSettingsApplication::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -134,18 +134,18 @@ void BLSettingsApplication::MessageReceived(BMessage* Msg)
 }
 
 /*
-* Application entry point.
-* Create the settings object in main, so that it may be used
-* in future commandline switches
-*/	
+ * Application entry point.
+ * Create the settings object in main, so that it may be used
+ * in future commandline switches
+ */	
 int main(int argc, char** argv)
 {
 	/* Find the settings path */
 	BPath path;
 	find_directory(B_COMMON_SETTINGS_DIRECTORY, &path);
 
-	/* Create the 'Matzon/BeLogin' directory */
-	path.Append("Matzon/Belogin");
+	/* Create the 'BeLogin' directory */
+	path.Append("BeLogin");
 	create_directory(path.Path(), 0777);
 
 	/* Add 'Settings' to path, and pass to BLSettings */
@@ -154,7 +154,7 @@ int main(int argc, char** argv)
 	
 	/* commandline */
 	if(argc > 1)
-		printf("%s: commandline support is comming :)\n", argv[0]);
+		printf("%s: commandline isn't supported\n", argv[0]);
 	
 	/* gui */
 	BLSettingsApplication* BLSApp = new BLSettingsApplication(&BLS);

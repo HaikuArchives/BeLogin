@@ -1,21 +1,21 @@
 /*
-*
-* -=BLSettings=-
-* This class is the base settings class of BeLogin.
-* The key to the settings class is the BMessage's Flatten and Unflatten
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettings=-
+ * This class is the base settings class of BeLogin.
+ * The key to the settings class is the BMessage's Flatten and Unflatten
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettings.h"
 
 /*
-* BLSettings(BPath path);
-*
-* Create a BLSettings object with the given path
-*/
+ * BLSettings(BPath path);
+ *
+ * Create a BLSettings object with the given path
+ */
 BLSettings::BLSettings(BPath path)
 : LastUser(NULL), Users(NULL), Runnable(NULL), Blocked(NULL)
 {
@@ -30,11 +30,11 @@ BLSettings::BLSettings(BPath path)
 }
 
 /*
-* ~BLSettings();
-* 
-* When the BLSettings is deleted, all it's arrays needs to be deleted.
-* There is no need to empty them, since they clean themselves.
-*/
+ * ~BLSettings();
+ *  
+ * When the BLSettings is deleted, all it's arrays needs to be deleted.
+ * There is no need to empty them, since they clean themselves.
+ */
 BLSettings::~BLSettings()
 {
 	if(File != NULL)
@@ -51,19 +51,19 @@ BLSettings::~BLSettings()
 }
 
 /*
-* bool Load();
-*
-* Load the settings from the file.
-*/
+ * bool Load();
+ *
+ * Load the settings from the file.
+ */
 status_t BLSettings::Load()
 {
 	/*
-	* Load settings:
-	* 1. Version 	(String)
-	* 2. Users		(Array)
-	* 3. Runnable	(Array)
-	* 4. Blocked	(Array)
-	*/
+	 * Load settings:
+	 * 1. Version 	(String)
+	 * 2. Users		(Array)
+	 * 3. Runnable	(Array)
+	 * 4. Blocked	(Array)
+	 */
 
 	/* Open the file */
 	BEntry entry(Path.Path());
@@ -152,6 +152,11 @@ status_t BLSettings::Load()
 	return B_OK;
 }
 
+/*
+ * bool Save();
+ *
+ * Save the settings to the file.
+ */
 status_t BLSettings::Save()
 {
 	MakeEmpty();
@@ -163,12 +168,12 @@ status_t BLSettings::Save()
 		return BL_SAVE_ERROR;
 
 	/*
-	* Save settings:
-	* 1. Version 	(String)
-	* 2. Users		(Array)
-	* 3. Runnable	(Array)
-	* 4. Blocked	(Array)
-	*/
+	 * Save settings:
+	 * 1. Version 	(String)
+	 * 2. Users		(Array)
+	 * 3. Runnable	(Array)
+	 * 4. Blocked	(Array)
+	 */
 	
 	/* Add the version*/	
 	AddString("Version", VERSION);
@@ -205,13 +210,13 @@ status_t BLSettings::Save()
 }
 
 /*
-* const BString& EnCrypt(BString& String);
-*
-* Encrypt a string, doesn't do much yet...
-*/
+ * const BString& EnCrypt(BString& String);
+ *
+ * Encrypt a string - this is just a simple encryption.
+ * Need better encryption that also allows regeneration...
+ */
 const BString BLSettings::EnCrypt(BString& String)
 {
-	//for logical reasons the crypt function is not included in the source...
 	BString Key = "#%)&%.-q2 ½";
 	BString Temp;
 	int x, ch;
@@ -226,28 +231,51 @@ const BString BLSettings::EnCrypt(BString& String)
 		
 		ch = String[x]; //aquire character
 		ch = ch^Key[y]; //XOR with key
-		ch = ~ch;		//OR 
+		ch = ~ch;		 //OR 
 	   
-		Temp += ch;		//add to string
+		Temp += ch;		 //add to string
 	}
 	return Temp;
 }
 
 /*
-* const BString& DeCrypt(BString& String);
-*
-* Decrypt a string, doesn't do much yet...
-*/
+ * MD5 encryption rutine, taken from Nathan Whitehorns
+ * multiuser implementation, slighty modified. Only used to
+ * store the password.
+ */
+char* BLSettings::MD5Encrypt(BString string) {
+	char* password = string.LockBuffer(string.Length());
+
+	MD5Context context;
+	unsigned char digest[16];
+	static char hex_digest[33];
+
+	MD5Init(&context);
+	MD5Update(&context,(uint8 *)password,strlen(password));
+	MD5Final(digest,&context);
+	for (int index = 0; index < 16; index++) 
+        sprintf(&(hex_digest[index*2]),"%02X", digest[index] & 255);
+        
+   string.UnlockBuffer();
+
+	return hex_digest;
+}
+
+/*
+ * const BString& DeCrypt(BString& String);
+ *
+ * Decrypt a string, doesn't do much yet...
+ */
 const BString BLSettings::DeCrypt(BString& String)
 {
 	return EnCrypt(String);
 }
 
 /*
-* bool HasBeenModified();
-*
-* 
-*/
+ * bool HasBeenModified();
+ *
+ * 
+ */
 bool BLSettings::HasBeenModified()
 {
 	if(Users->HasBeenModified() == true)

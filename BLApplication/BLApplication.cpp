@@ -1,24 +1,24 @@
 /*
-*
-* -=BLApplication=-
-* This is the main class. It is a requirement for all BeOS Applications
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLApplication=-
+ * This is the main class. It is a requirement for all BeOS Applications
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLApplication.h"
 
 /*
-* BLApplication(BLSettings* bls);
-*
-* The BLApplications constructor.
-* load the settings and test the validity of the settings.
-* Then construct and show the window
-*/
+ * BLApplication(BLSettings* bls);
+ *
+ * The BLApplications constructor.
+ * load the settings and test the validity of the settings.
+ * Then construct and show the window
+ */
 BLApplication::BLApplication(BLSettings* bls)
-: BApplication("application/x-vnd.Matzon-BeLogin"), Settings(bls)
+: BApplication("application/x-vnd.BeLogin-BeLogin"), Settings(bls)
 {
 	status_t settingserr = Settings->Load();
 	if(settingserr == BL_LOAD_ERROR)
@@ -35,9 +35,9 @@ BLApplication::BLApplication(BLSettings* bls)
 	float Width = 260.0;
 	
 	/* 
-	* If font size is larger that 9 (the smallest) add one pixel to window height
-	* for each pixel larger than 9
-	*/
+	 * If font size is larger that 9 (the smallest) add one pixel to window height
+	 * for each pixel larger than 9
+	 */
 	float Height = 135.0 + (int)be_plain_font->Size() % 9;
 	
 	/* Get the resolution of the main screen */
@@ -53,19 +53,19 @@ BLApplication::BLApplication(BLSettings* bls)
 }
 
 /*
-* ~BLApplication();
-*
-* The BLApplications destructor. Currently void
-*/
+ * ~BLApplication();
+ *
+ * The BLApplications destructor. Currently void
+ */
 BLApplication::~BLApplication()
 {
 }
 
 /*
-* Application entry point.
-* Create the settings object in main, so that it may be used
-* in future commandline switches
-*/	
+ * Application entry point.
+ * Create the settings object in main, so that it may be used
+ * in future commandline switches
+ */	
 int main(int argc, char** argv)
 {
 	/* Find the settings path */
@@ -73,21 +73,9 @@ int main(int argc, char** argv)
 	find_directory(B_COMMON_SETTINGS_DIRECTORY, &path);
 
 	/* Add 'Settings' to path, and pass to BLSettings */
-	path.Append("Matzon/Belogin/Settings");
+	path.Append("BeLogin/Settings");
 	BLSettings BLS(path);
 	
-/*	
-	BLS.GetUsers()->AddItem(new BLUser(BString("Admin"), BString("Admin"), true));
-	BLS.GetRunnable()->AddItem(new BString("Må køres"));
-	BLS.GetBlocked()->AddItem(new BString("Må ikke køres"));
-	BString lu("Admin");
-	BLS.SetLastUser(lu);		
-
-	BLS.Load();	
-	BLS.Save();
-	return B_OK;
-*/
-
 	BLApplication* BLApp = new BLApplication(&BLS);
 	BLApp->Run();
 

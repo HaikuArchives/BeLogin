@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsRunnableView=-
-* This is the Runnable view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsRunnableView=-
+ * This is the Runnable view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSRUNNABLEVIEW_H
 #define BLSETTINGSRUNNABLEVIEW_H

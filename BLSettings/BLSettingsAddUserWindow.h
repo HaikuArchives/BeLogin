@@ -1,12 +1,12 @@
 /*
-*
-* -=BLSettingsAddUserWindow=-
-* This is the window for the Add user view
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsAddUserWindow=-
+ * This is the window for the Add user view
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLSETTINGSADDUSERWINDOW_H
 #define BLSETTINGSADDUSERWINDOW_H

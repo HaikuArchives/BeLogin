@@ -1,12 +1,12 @@
 /*
-*
-* -=BLUsers=-
-* This class is simply a collection of all the users.
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLUsers=-
+ * This class is simply a collection of all the users.
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLUSERS_H
 #define BLUSERS_H

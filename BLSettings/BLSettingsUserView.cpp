@@ -1,19 +1,19 @@
 /*
-*
-* -=BLSettingsUserView=-
-* This is the user view.  
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsUserView=-
+ * This is the user view.  
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsUserView.h"
 
 /*
-* BLSettingsUserView(BRect canvas);
-*
-*/
+ * BLSettingsUserView(BRect canvas);
+ *
+ */
 BLSettingsUserView::BLSettingsUserView(BRect canvas, BLSettings* bls)
 : BView(canvas, "userview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW), Settings(bls)
 {
@@ -61,20 +61,20 @@ BLSettingsUserView::BLSettingsUserView(BRect canvas, BLSettings* bls)
 }
 
 /*
-* ~BLSettingsUserView();
-* 
-* The destructor is currently void
-*/
+ * ~BLSettingsUserView();
+ * 
+ * The destructor is currently void
+ */
 BLSettingsUserView::~BLSettingsUserView()
 {
 }
 
 /*
-* void AttachedToWindow();
-*
-* The view has now been attached to the window.
-* Now do all the initialization stuff
-*/
+ * void AttachedToWindow();
+ *
+ * The view has now been attached to the window.
+ * Now do all the initialization stuff
+ */
 void BLSettingsUserView::AttachedToWindow()
 {
 	ListView->SetTarget(this);
@@ -84,9 +84,9 @@ void BLSettingsUserView::AttachedToWindow()
 }
 
 /*
-* void MessageReceived(BMessage* Msg);
-*
-*/
+ * void MessageReceived(BMessage* Msg);
+ *
+ */
 void BLSettingsUserView::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -116,10 +116,10 @@ void BLSettingsUserView::MessageReceived(BMessage* Msg)
 			float Width = 300.0;
 	
 			/* 
-			* If font size is larger that 9 (the smallest) add one pixel to window height
-			* for each pixel larger than 9
-			* This window is 20 px smaller than BeLogin since there's no Menu
-			*/
+			 * If font size is larger that 9 (the smallest) add one pixel to window height
+			 * for each pixel larger than 9
+			 * This window is 20 px smaller than BeLogin since there's no Menu
+			 */
 			float Height = 150.0 + (int)be_plain_font->Size() % 9;
 	
 			/* Get the resolution of the main screen */
@@ -145,10 +145,10 @@ void BLSettingsUserView::MessageReceived(BMessage* Msg)
 				float Width = 300.0;
 		
 				/* 
-				* If font size is larger that 9 (the smallest) add one pixel to window height
-				* for each pixel larger than 9
-				* This window is 20 px smaller than BeLogin since there's no Menu
-				*/
+				 * If font size is larger that 9 (the smallest) add one pixel to window height
+				 * for each pixel larger than 9
+				 * This window is 20 px smaller than BeLogin since there's no Menu
+				 */
 				float Height = 180.0 + (int)be_plain_font->Size() % 9;
 	
 				/* Get the resolution of the main screen */

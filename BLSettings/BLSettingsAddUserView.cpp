@@ -1,41 +1,41 @@
 /*
-*
-* -=BLSettingsAddUserView=-
-* This is the Add User View
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLSettingsAddUserView=-
+ * This is the Add User View
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #include "BLSettingsAddUserView.h"
 
 /*
-* BLSettingsAddUserView(BRect canvas, BLSettings* bls);
-* 
-* The constructor, initializes some parameters...
-*
-*/
+ * BLSettingsAddUserView(BRect canvas, BLSettings* bls);
+ * 
+ * The constructor, initializes some parameters...
+ *
+ */
 BLSettingsAddUserView::BLSettingsAddUserView(BRect canvas, BLSettings* bls)
 : BView(canvas, "adduserview", B_FOLLOW_ALL_SIDES, B_NAVIGABLE), Settings(bls)
 {
 }
 
 /*
-* ~BLSettingsAddUserView();
-* 
-* Void
-*/
+ * ~BLSettingsAddUserView();
+ * 
+ * Void
+ */
 BLSettingsAddUserView::~BLSettingsAddUserView()
 {
 }
 
 /*
-*
-* AttachedToWindow();
-*
-* Initialize the view, and place it's buttons and stuff
-*/
+ *
+ * AttachedToWindow();
+ *
+ * Initialize the view, and places it's buttons and stuff
+ */
 void BLSettingsAddUserView::AttachedToWindow()
 {
 	SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
@@ -102,10 +102,10 @@ void BLSettingsAddUserView::AttachedToWindow()
 }
 
 /* 
-* MessageReceived(BMessage* Msg);
-*
-* Message handling
-*/
+ * MessageReceived(BMessage* Msg);
+ *
+ * Message handling
+ */
 void BLSettingsAddUserView::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
@@ -142,7 +142,7 @@ void BLSettingsAddUserView::MessageReceived(BMessage* Msg)
 				txtPassword->MakeFocus();
 				break;
 			} 
-			if(password.ICompare(cpassword) != 0)
+			if(password.Compare(cpassword) != 0)
 			{ 
 				(new BAlert("Error", "Password and Confirmed password differ", "Ok"))->Go();
 				txtPassword->MakeFocus();
@@ -151,7 +151,7 @@ void BLSettingsAddUserView::MessageReceived(BMessage* Msg)
 
 			/* User verified. Add the user to the list */
 			BString Username(txtUsername->Text());
-			BString Password(txtPassword->Text());
+			BString Password(Settings->MD5Encrypt(txtPassword->Text()));
 			BLUser* User = new BLUser(Username, Password);
 			User->HasBeenModified(true);
 			Settings->GetUsers()->AddItem(User);

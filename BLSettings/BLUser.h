@@ -1,13 +1,13 @@
 /*
-*
-* -=BLUser=-
-* The class that represents a user. The user has a Username and Password.
-* The user also has a boolean, which is set to true if it is an administrator.
-*
-* Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
-* This software and its sourcecode is covered by the "Gnu General Public License". 
-*
-*/
+ *
+ * -=BLUser=-
+ * The class that represents a user. The user has a Username and Password.
+ * The user also has a boolean, which is set to true if it is an administrator.
+ *
+ * Copyright (C) 2000 Brian Matzon [brian@matzon.dk]. All Rights Reserved.
+ * This software and its sourcecode is covered by the "Gnu General Public License". 
+ *
+ */
 
 #ifndef BLUSER_H
 #define BLUSER_H
