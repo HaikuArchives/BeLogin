@@ -25,42 +25,16 @@ const BMessage * kReenableMsg = new BMessage(BL_REENABLE_LOGIN);
  * The Aboutwindow is nulled too.
  */
 BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
-: BWindow(frame, TITLE_LOGINWINDOW, B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_NOT_CLOSABLE), Settings(bls), AboutWindow(NULL), Exiting(false), Attempts(1)
+: BWindow(frame, TITLE_LOGINWINDOW, B_MODAL_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_NOT_CLOSABLE | B_NOT_MOVABLE), Settings(bls), AboutWindow(NULL), Exiting(false), Attempts(1)
 {
-	/* Create the Menu*/
 	BRect Rect(0, 0, 0, 0);
-	MenuBar = new BMenuBar(Rect, "BeLoginMenu");
+	AddShortcut('A', B_COMMAND_KEY, new BMessage(B_ABOUT_REQUESTED));
 
-	BMenu* mnuSystem = new BMenu("System");
-	BMenuItem* mniRestart = new BMenuItem("Restart", new BMessage(BL_MENU_RESTART));
-	BMenuItem* mniShutdown = new BMenuItem("Shutdown", new BMessage(BL_MENU_SHUTDOWN));
-	mnuSystem->AddItem(mniRestart);
-	mnuSystem->AddItem(mniShutdown);
-
-#ifdef BETA
-	mnuSystem->AddSeparatorItem();
-	mnuSystem->AddItem(new BMenuItem("BETA-QUIT", new BMessage(BL_BETA_QUIT_REQUESTED), 'Q'));
-#endif		
-
-	BMenu* mnuAbout = new BMenu("About");
-	BMenuItem* mniAbout = new BMenuItem("About...", new BMessage(B_ABOUT_REQUESTED), 'A');
-	mnuAbout->AddItem(mniAbout);
-	
-	MenuBar->AddItem(mnuSystem);
-	MenuBar->AddItem(mnuAbout);		
-
-	/* Add the menubar to the view. Its size wont be set until it has been added to the view */
-	Lock();
-	AddChild(MenuBar);
-	Unlock();
-	
 	/* 
 	 * Make the views size equal to that of the windows bounds minus the 
 	 * height of the menubar 
 	 */
 	Rect = Bounds();
-	Rect.InsetBy(0, MenuBar->Bounds().Height()/2);
-	Rect.OffsetTo(0, MenuBar->Bounds().Height());
 	
 	Lock();
 	View = new BLLoginView(Rect, Settings);
@@ -107,58 +81,7 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 {
 	switch(Msg->what)
 	{
-	
-#ifdef BETA	
-		/* Beta Quit*/
-		case BL_BETA_QUIT_REQUESTED:
-		{
-			Exiting = true;
-			app_info AppInfo; 
-			BString ScriptPath = "\"";
-	   	if(be_app->GetAppInfo(&AppInfo) == B_OK)
-	   	{
-		  		BEntry	ProgramEntry(&AppInfo.ref);    	
-				BPath Path;
-				ProgramEntry.GetPath(&Path);
-	
-				Path.GetParent(&Path);
-				ScriptPath.Append(Path.Path());
-				ScriptPath.Append("/LoginScript\"");
-				
-				/* Hide the window first */
-				Hide();
-				
-				/* Execute the script */
-				system(ScriptPath.String());			//Has to be a better way??
-			}
-			PostMessage(B_QUIT_REQUESTED);
-			break;
-		}
-#endif
-	
-		/* Restart menuentry was selected */
-		case BL_MENU_RESTART:
-		{
-			/* Hide the window first */
-			Hide();
-
-			system("shutdown -r");
-			PostMessage(B_QUIT_REQUESTED);
-			break;
-		}
-
-		/* Shutdown menuentry was selected */
-		case BL_MENU_SHUTDOWN:
-		{
-			/* Hide the window first */
-			Hide();
-
-			system("shutdown");
-			PostMessage(B_QUIT_REQUESTED);
-			break;
-		}
-
-		/* Ok button was pushed */
+		/* Login button was pushed */
 		case BL_TRY_LOGIN:
 		{
 			/* Get Username and Password from view */
@@ -171,7 +94,7 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 			}
 			
 			/* Make hash */
-			Password = Settings->MD5Encrypt(View->GetPassword());
+			Password = Settings->MD5Hash(View->GetPassword());
 			
 			/* Check the combination */
 			if(Settings->GetUsers()->IsValid(Username, Password))
@@ -187,8 +110,8 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 				Exiting = true;
 				app_info AppInfo; 
 				BString ScriptPath = "\"";
-		   	if(be_app->GetAppInfo(&AppInfo) == B_OK)
-		   	{
+			   	if(be_app->GetAppInfo(&AppInfo) == B_OK)
+			   	{
 			  		BEntry	ProgramEntry(&AppInfo.ref);    	
 					BPath Path;
 					ProgramEntry.GetPath(&Path);
@@ -362,7 +285,55 @@ void BLLoginWindow::MessageReceived(BMessage* Msg)
 			}
 			break;
 		}
+		/*
+		 * User is requesting shutdown - determine shutdown or restart
+		 */
+		case BL_SHUTDOWN_REQUESTED: 
+		{
+			//show alert so that user can select whether or not he wants 
+			//to do a shutdown or a restart
+			BAlert* shutdownAlert = new BAlert("Shutting down", "Please select shutdown type", "Cancel", "Shutdown", "Restart", B_WIDTH_AS_USUAL, B_OFFSET_SPACING, B_WARNING_ALERT);
+			shutdownAlert->SetShortcut(0, B_ESCAPE);
 
+			//usee invoker, to allow asynchronous handling
+			shutdownAlert->Go(new BInvoker(new BMessage(BL_DO_SHUTDOWN), this));
+			break;
+		}
+		
+		/*
+		 * Reply received regarding shutdown
+		 */
+		case BL_DO_SHUTDOWN:
+		{
+			//locate button selected
+			int32 SelectedButton = -1;
+			Msg->FindInt32("which", &SelectedButton);
+			
+			//switch on selection (case 0 = cancel)
+			switch(SelectedButton) {
+			   	/* Shutdown */
+				case 1:
+				{
+					/* Hide the window first */
+					Hide();
+
+					system("shutdown");
+					PostMessage(B_QUIT_REQUESTED);
+					break;
+				}
+				/* Restart */
+				case 2:
+				{
+					/* Hide the window first */
+					Hide();
+
+					system("shutdown -r");
+					PostMessage(B_QUIT_REQUESTED);
+					break;
+				}
+			}
+			break;
+		}
 		default:
 		{
 			/* If we're not going to use the message, send it along to the base class */
