@@ -27,11 +27,12 @@ public:
 	~BLSettingsLoginWindow();
 	bool QuitRequested();
 	void MessageReceived(BMessage* Msg);
-
+	inline bool WasSuccessfullLogin() { return SuccessfullLogin; }
 private:
 	BLSettings* Settings;
 	BLSettingsAboutWindow* AboutWindow;
 	BLSettingsLoginView* View;
+	bool SuccessfullLogin;
 };
 
 #endif
