@@ -49,10 +49,15 @@ BLSettingsApplication::BLSettingsApplication(BLSettings* bls)
 		BString* Deskbar = new BString("application/x-vnd.Be-TSKB");
 		blocked->AddItem(Deskbar);
 		
+		/* Add some applications under runnable (Screensaver & Netserver) */
 		BLRunnable* runnable = Settings->GetRunnable();
+
 		BString* ScreenSaver = new BString("application/x-vnd.Be.screenblanker");
 		runnable->AddItem(ScreenSaver);
 		
+		BString* NetServer = new BString("application/x-vnd.Be-NETS");
+		runnable->AddItem(NetServer);
+
 		/* Save settings */
 		Settings->Save();
 	}

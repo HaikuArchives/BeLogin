@@ -11,7 +11,7 @@
 #define BL_INCLUDES
 
 #include <String.h>
-//#define BL_DEBUG																								// Miscellaneous
+#define BL_DEBUG																								// Miscellaneous
 #define BL_VERBOSE									true																				// Miscellaneous
 #define BL_BETA_QUIT_REQUESTED						'bequ'														// BLLoginWindow
 #define BL_LOAD_ERROR								'lerr'														// BLSettings
