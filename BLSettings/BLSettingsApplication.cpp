@@ -108,6 +108,10 @@ void BLSettingsApplication::MessageReceived(BMessage* Msg)
 		/* A successfull login was received, show da goods */
 		case BL_LOGIN_SUCCESSFULL:
 		{
+			if(!LoginWindow->WasSuccessfullLogin()) {
+				return;
+			}
+			
 			LoginWindow->Lock();
 			LoginWindow->Quit();
 
