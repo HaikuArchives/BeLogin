@@ -64,8 +64,16 @@ void BLSettingsLoginWindow::MessageReceived(BMessage* Msg)
 		{
 			/* Get Username and Password from view */
 			BString Username(View->GetUsername());
-			BString Password(Settings->MD5Encrypt(View->GetPassword()));
+			BString Password(View->GetPassword());
 			
+			/* Validate that something was typed before continuing */
+			if(Username.Length() <= 0 || Password.Length() <= 0) {
+				return;
+			}
+			
+			/* Make hash */
+			Password = Settings->MD5Encrypt(View->GetPassword());
+
 			/* Check the combination */
 			if(Settings->GetUsers()->IsAdministrator(Username, Password))
 			{
