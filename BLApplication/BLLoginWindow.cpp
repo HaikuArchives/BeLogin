@@ -11,7 +11,6 @@
  */
 
 #include "BLLoginWindow.h"
-#include "iostream.h"
 #include <OS.h>
 
 /* Create the message to reenable BeLogin */
@@ -22,7 +21,6 @@ const BMessage * kReenableMsg = new BMessage(BL_REENABLE_LOGIN);
  *
  * The constructor of the window adds the child to the view chain
  * and sets its own Settings to the one passed by parameter
- * The Aboutwindow is nulled too.
  */
 BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
 : BWindow(frame, TITLE_LOGINWINDOW, B_MODAL_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE | B_NOT_CLOSABLE | B_NOT_MOVABLE), Settings(bls), AboutWindow(NULL), Exiting(false), Attempts(1)
@@ -48,7 +46,7 @@ BLLoginWindow::BLLoginWindow(BRect frame, BLSettings* bls)
 	BMessenger msgr(this);
 	be_roster->StartWatching(msgr, B_REQUEST_LAUNCHED | B_SOME_APP_ACTIVATED);
 	
-	TerminateApplications();
+	//TerminateApplications();
 }
 
 /*
@@ -357,7 +355,7 @@ void BLLoginWindow::ApplicationLaunch(BMessage* Msg)
 	/* The Roster has put the signature of the app in the BMessage. Retrieve it.*/
 	if(Msg->FindString("be:signature", &signature) != B_OK)
 	{	
-		(new BAlert("Error", "Couldn't find signature", "Ok"))->Go();
+		(new BAlert("Error", "Couldn't find signature for program. Unable to terminate it.", "Ok"))->Go();
 		return; 
 	}
 	
