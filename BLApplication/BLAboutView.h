@@ -17,6 +17,7 @@
 #include <Message.h>
 #include <Bitmap.h>
 #include <TranslationUtils.h>
+#include <TranslatorFormats.h>
 
 #include "../BLShared/BLDefines.h"
 

@@ -135,5 +135,5 @@ void BLAboutView::KeyUp(const char *key, int32 numBytes)
 void BLAboutView::LoadLogo()
 {
 	/* Use translator utils to load the picture */
-	AboutPicture = BTranslationUtils::GetBitmap("About");
+	AboutPicture = BTranslationUtils::GetBitmap(B_PNG_FORMAT, 100);
 }
