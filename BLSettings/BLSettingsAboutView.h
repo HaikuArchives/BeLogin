@@ -17,6 +17,7 @@
 #include <Bitmap.h>
 #include <Window.h>
 #include <TranslationUtils.h>
+#include <TranslatorFormats.h>
 
 class BLSettingsAboutView : public BView
 {
