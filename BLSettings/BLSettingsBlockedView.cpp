@@ -102,7 +102,7 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 			/* dupecheck */
 			if(Settings->GetBlocked()->Exists(Signature))
 			{
-				if(VERBOSE)
+				if(BL_VERBOSE)
 					(new BAlert("Signature exists", "Unable to add item since that would cause duplicates.", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_WARNING_ALERT))->Go();
 				
 				break;				
@@ -198,7 +198,7 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 	  				BNode Node(&entry);
   					if(Node.ReadAttr("BEOS:APP_SIG", B_STRING_TYPE, off, buf, L) <= 0)
   					{
-						if(VERBOSE)
+						if(BL_VERBOSE)
 							(new BAlert("Error", "Unable to read the application signature.", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_OFFSET_SPACING, B_WARNING_ALERT))->Go();
 	  				}
 					else
@@ -207,7 +207,7 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 	
   						if(Settings->GetBlocked()->Exists(Signature))
   						{
-  							if(VERBOSE)
+  							if(BL_VERBOSE)
 								(new BAlert("Signature exists", "Unable to add item since that would cause duplicates.", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_WARNING_ALERT))->Go();
 	  					}
 	  					else
@@ -248,7 +248,7 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 	  				BNode Node(&entry);
   					if(Node.ReadAttr("BEOS:APP_SIG", B_STRING_TYPE, off, buf, L) <= 0)
   					{
-  						if(VERBOSE)
+  						if(BL_VERBOSE)
 							(new BAlert("Error", "Unable to read the application signature.", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_OFFSET_SPACING, B_WARNING_ALERT))->Go();
   					}
 					else
@@ -258,7 +258,7 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 
 		  				if(Settings->GetBlocked()->Exists(Signature))
   						{
-							if(VERBOSE)
+							if(BL_VERBOSE)
 								(new BAlert("Signature exists", "Unable to add item since that would cause duplicates.", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_WARNING_ALERT))->Go();
   						}
   						else
@@ -283,7 +283,7 @@ void BLSettingsBlockedView::MessageReceived(BMessage* Msg)
 			{
 				/* Get name of selection and verify that the user indeed wants to delete the entry */
 				int32 index;
-				BString text = "Are you certain that you want to delete ";
+				BString text = "Are you certain that you want to delete\n";
 				text.Append(((BStringItem*) ListView->ItemAt(ListView->CurrentSelection()))->Text());
 				text.Append(" ?");
 					  
