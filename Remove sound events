@@ -1,0 +1,3 @@
+#!/bin/sh
+/bin/installsound --remove "BeLogin - Invalid login"
+/bin/installsound --remove "BeLogin - Valid login"
