@@ -18,6 +18,8 @@
 BLSettingsLoginView::BLSettingsLoginView(BRect canvas, BLSettings* bls)
 : BView(canvas, "loginview", B_FOLLOW_ALL_SIDES, B_WILL_DRAW), Settings(bls)
 {
+	if(Icon != NULL)
+		delete Icon;
 }
 
 /*
@@ -40,13 +42,16 @@ void BLSettingsLoginView::AttachedToWindow()
 	SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
 	BRect ViewSize(Bounds());
 	
-	float TopPadding						= 15;
-	float LeftPadding 					= 15;
+	float TopPadding					= 40;
+	float LeftPadding 					= 50;
 	float RightPadding 					= 15;
 	float TextControlHeight 			= 20;
 	float TextControlPadding 			= 30;
-	float TextControlLabelPadding 	= 15;
+	float TextControlLabelPadding 		= 15;
 	float ButtonPadding					= 2;
+	float ButtonPaddingBottom			= 7;
+	float IconPaddingTop				= 10;
+	float IconPaddingLeft				= 19;
 		
 	BRect TextControlRect(	LeftPadding, 
 									TopPadding, 
@@ -69,14 +74,56 @@ void BLSettingsLoginView::AttachedToWindow()
 	
 	/* Calculate the size of the button */
 	BRect ButtonRect(0, 0, Password->TextView()->Bounds().Width() / 2, 0);
-	ButtonRect.OffsetBy(Bounds().Width() - RightPadding - ButtonRect.Width() - ButtonPadding, TopPadding + TextControlPadding + TextControlPadding + ButtonPadding);
+	ButtonRect.OffsetBy(Bounds().Width() - RightPadding - ButtonRect.Width() - ButtonPadding, TopPadding + TextControlPadding*2 + ButtonPaddingBottom);
 		
-	/* Create and add the button */
-	Button = new BButton(ButtonRect, "BeLoginView_Button", "Ok", new BMessage(BL_TRY_LOGIN));
+	/* Create and add the login button */
+	Button = new BButton(ButtonRect, "BeLoginView_Button", "Login", new BMessage(BL_TRY_LOGIN));
 	Button->MakeDefault(true);
 	AddChild(Button);
+	
+	/* Create and add the quit button */
+	ButtonRect.OffsetBy(-(ButtonRect.Width() + 10), 0);
+	Button = new BButton(ButtonRect, "BeLoginView_Button", "Quit", new BMessage(B_QUIT_REQUESTED));
+	AddChild(Button);	
 	
 	Username->SetText("Administrator");
 	Username->SetEnabled(false);
 	Password->MakeFocus(true);
+	
+	/* Pre calculate filled box */
+	FilledBox = new BRect(0, 0, 32, Bounds().Height());		
+	
+	/* Prepare Icon image */
+	/* Use translator utils to load the picture */
+	Icon = BTranslationUtils::GetBitmap(B_PNG_FORMAT, 101);
+	IconLocation = new BPoint(IconPaddingLeft, IconPaddingTop);
+	IconExtent = new BRect(IconPaddingLeft, IconPaddingTop, IconPaddingLeft + Icon->Bounds().right, IconPaddingTop + Icon->Bounds().bottom);
+}
+
+/*
+ * void Draw(BRect updaterect);
+ * Draw the filled box to the left, and paint the BeOS icon too
+ */
+void BLSettingsLoginView::Draw(BRect updaterect) {
+	//set color and paint filled box to the left
+	SetHighColor(184, 184, 184);
+	FillRect(*FilledBox);
+	
+	//draw bitmap
+	DrawBitmap(Icon, *IconLocation);
+}
+
+/*
+ * void MouseUp(BPoint point);
+ * Catch MouseUp event, and determine if inside BeOS icon. If so
+ * display the about window.
+ */
+void BLSettingsLoginView::MouseUp(BPoint point)
+{
+	//if cursor inside icon rect - display about
+	if(IconExtent->Contains(point)) {
+//		Window()->PostMessage(B_ABOUT_REQUESTED);
+	} else {
+		BView::MouseUp(point);
+	}
 }
