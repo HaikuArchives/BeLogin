@@ -41,7 +41,7 @@ public:
 	inline void				SetLastUser(BString& String) { this->LastUser = String; }; 
 	bool HasBeenModified();
 	
-	char* MD5Encrypt(BString string);
+	char* MD5Hash(BString string);
 	
 private:
 	const BString EnCrypt(BString&);
