@@ -17,7 +17,7 @@
  * The constructor of the window adds the child to the view chain
  */
 BLSettingsLoginWindow::BLSettingsLoginWindow(BRect frame, BLSettings* bls)
-: BWindow(frame, SETTINGS_TITLE_LOGIN_WINDOW, B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE), Settings(bls)
+: BWindow(frame, SETTINGS_TITLE_LOGIN_WINDOW, B_MODAL_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_NOT_MINIMIZABLE), Settings(bls), SuccessfullLogin(false)
 {
 	frame.OffsetTo(B_ORIGIN);
 	Lock();
@@ -72,12 +72,13 @@ void BLSettingsLoginWindow::MessageReceived(BMessage* Msg)
 			}
 			
 			/* Make hash */
-			Password = Settings->MD5Encrypt(View->GetPassword());
+			Password = Settings->MD5Hash(View->GetPassword());
 
 			/* Check the combination */
 			if(Settings->GetUsers()->IsAdministrator(Username, Password))
 			{
 				/* Valid */
+				SuccessfullLogin = true;
 				be_app->PostMessage(BL_LOGIN_SUCCESSFULL);
 			}
 			else		
