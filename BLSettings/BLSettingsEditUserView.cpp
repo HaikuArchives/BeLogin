@@ -160,7 +160,7 @@ void BLSettingsEditUserView::MessageReceived(BMessage* Msg)
 			}
 			
 			/* Validate correct Old Password */
-			if(User->GetPassword().Compare(Settings->MD5Encrypt(txtOldPassword->Text())) != 0)
+			if(User->GetPassword().Compare(Settings->MD5Hash(txtOldPassword->Text())) != 0)
 			{
 				(new BAlert("Error", "Incorrect old password", "Ok"))->Go();
 				txtOldPassword->MakeFocus();
@@ -188,7 +188,7 @@ void BLSettingsEditUserView::MessageReceived(BMessage* Msg)
 				
 			/* User verified. Add the user to the list */
 			BString newUsername(txtUsername->Text());
-			BString newPassword(Settings->MD5Encrypt(txtPassword->Text()));
+			BString newPassword(Settings->MD5Hash(txtPassword->Text()));
 			User->SetUsername(newUsername);
 			User->SetPassword(newPassword);
 			User->HasBeenModified(true);

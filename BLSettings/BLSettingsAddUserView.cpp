@@ -151,7 +151,7 @@ void BLSettingsAddUserView::MessageReceived(BMessage* Msg)
 
 			/* User verified. Add the user to the list */
 			BString Username(txtUsername->Text());
-			BString Password(Settings->MD5Encrypt(txtPassword->Text()));
+			BString Password(Settings->MD5Hash(txtPassword->Text()));
 			BLUser* User = new BLUser(Username, Password);
 			User->HasBeenModified(true);
 			Settings->GetUsers()->AddItem(User);
