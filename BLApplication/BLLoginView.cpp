@@ -23,10 +23,12 @@ BLLoginView::BLLoginView(BRect canvas, BLSettings* bls)
 /*
  * ~BLLoginView();
  * 
- * The destructor is currently void
+ * Make sure we destroy the Icon that was loaded
  */
 BLLoginView::~BLLoginView()
 {
+	if(Icon != NULL)
+		delete Icon;
 }
 
 /*
@@ -40,13 +42,16 @@ void BLLoginView::AttachedToWindow()
 	SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
 	BRect ViewSize(Bounds());
 	
-	float TopPadding						= 15;
-	float LeftPadding 					= 15;
+	float TopPadding					= 40;
+	float LeftPadding 					= 50;
 	float RightPadding 					= 15;
 	float TextControlHeight 			= 20;
 	float TextControlPadding 			= 30;
-	float TextControlLabelPadding 	= 15;
+	float TextControlLabelPadding 		= 15;
 	float ButtonPadding					= 2;
+	float ButtonPaddingBottom			= 7;
+	float IconPaddingTop				= 10;
+	float IconPaddingLeft				= 19;
 		
 	BRect TextControlRect(	LeftPadding, 
 									TopPadding, 
@@ -69,19 +74,61 @@ void BLLoginView::AttachedToWindow()
 	
 	/* Calculate the size of the button */
 	BRect ButtonRect(0, 0, Password->TextView()->Bounds().Width() / 2, 0);
-	ButtonRect.OffsetBy(Bounds().Width() - RightPadding - ButtonRect.Width() - ButtonPadding, TopPadding + TextControlPadding + TextControlPadding + ButtonPadding);
+	ButtonRect.OffsetBy(Bounds().Width() - RightPadding - ButtonRect.Width() - ButtonPadding, TopPadding + TextControlPadding*2 + ButtonPaddingBottom);
 		
-	/* Create and add the button */
-	Button = new BButton(ButtonRect, "BeLoginView_Button", "Ok", new BMessage(BL_TRY_LOGIN));
+	/* Create and add the login button */
+	Button = new BButton(ButtonRect, "BeLoginView_Button", "Login", new BMessage(BL_TRY_LOGIN));
 	Button->MakeDefault(true);
 	AddChild(Button);
 	
-#ifdef DEBUG
+	/* Create and add the shutdown button */
 	ButtonRect.OffsetBy(-(ButtonRect.Width() + 10), 0);
+	Button = new BButton(ButtonRect, "BeLoginView_Button", "Shutdown", new BMessage(BL_SHUTDOWN_REQUESTED));
+	AddChild(Button);
 	
-	AddChild(new BButton(ButtonRect, "BeLoginView_Debug", "Quit", new BMessage(BL_QUIT)));
-#endif
+#ifdef BL_DEBUG 
+        ButtonRect.OffsetBy(-(ButtonRect.Width() + 10), 0); 
+        AddChild(new BButton(ButtonRect, "BeLoginView_Debug", "Quit", new BMessage(B_QUIT_REQUESTED))); 
+#endif 	
 
 	Username->SetText(Settings->GetLastUser().String());
 	Password->MakeFocus(true);
+	
+	/* Pre calculate filled box */
+	FilledBox = new BRect(0, 0, 32, Bounds().Height());	
+	
+	/* Prepare Icon image */
+	/* Use translator utils to load the picture */
+	Icon = BTranslationUtils::GetBitmap(B_PNG_FORMAT, 101);
+	IconLocation = new BPoint(IconPaddingLeft, IconPaddingTop);
+	IconExtent = new BRect(IconPaddingLeft, IconPaddingTop, IconPaddingLeft + Icon->Bounds().right, IconPaddingTop + Icon->Bounds().bottom);
 }
+
+/*
+ * void Draw(BRect updaterect);
+ * Draw the filled box to the left, and paint the BeOS icon too
+ */
+void BLLoginView::Draw(BRect updaterect) {
+	//set color and paint filled box to the left
+	SetHighColor(184, 184, 184);
+	FillRect(*FilledBox);
+	
+	//draw bitmap
+	DrawBitmap(Icon, *IconLocation);
+}
+
+/*
+ * void MouseUp(BPoint point);
+ * Catch MouseUp event, and determine if inside BeOS icon. If so
+ * display the about window.
+ */
+void BLLoginView::MouseUp(BPoint point)
+{
+	//if cursor inside icon rect - display about
+	if(IconExtent->Contains(point)) {
+		Window()->PostMessage(B_ABOUT_REQUESTED);
+	} else {
+		BView::MouseUp(point);
+	}
+}
+

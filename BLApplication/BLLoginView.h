@@ -20,6 +20,9 @@
 #include <Screen.h>
 #include <FindDirectory.h>
 #include <Button.h>
+#include <Bitmap.h>
+#include <TranslationUtils.h>
+#include <TranslatorFormats.h>
 
 #include "../BLShared/BLDefines.h"
 #include "../BLSettings/BLSettings.h"
@@ -36,10 +39,16 @@ public:
 	BTextControl* GetUserNameControl() 	{ return Username; }
 	BTextControl* GetPasswordControl() 	{ return Password; }
 	BButton* GetButton() 					{ return Button; }
+	void Draw(BRect updaterect);
+	void MouseUp(BPoint point);
 private:
 	BLSettings* Settings;
 	BTextControl* Username;
 	BTextControl* Password;
 	BButton* Button;
+	BBitmap* Icon;
+	BPoint* IconLocation;
+	BRect* IconExtent;
+	BRect* FilledBox;
 };
 #endif
