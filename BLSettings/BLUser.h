@@ -21,10 +21,10 @@ public:
   ~BLUser();
 	
 	inline BString& 	GetUsername()										{ return Username; };
-	inline void    	SetUsername(BString NewUsername) 			{ this->Username = NewUsername; modified = true; };
+	inline void    	SetUsername(BString & NewUsername) 			{ this->Username.SetTo(NewUsername.String()); modified = true; };
 	
 	inline BString& 	GetPassword()                 				{ return Password; };
-	inline void    	SetPassword(BString NewPassword) 			{ this->Password = NewPassword; modified = true; };
+	inline void    	SetPassword(BString & NewPassword) 			{ this->Password.SetTo(NewPassword.String()); modified = true; };
 	
 	inline bool    	IsAdministrator()             				{ return this->Username.Compare("Administrator") == 0; };
 	inline bool 		HasBeenModified() 								{ return modified; };

@@ -76,6 +76,12 @@ void BLLoginView::AttachedToWindow()
 	Button->MakeDefault(true);
 	AddChild(Button);
 	
+#ifdef DEBUG
+	ButtonRect.OffsetBy(-(ButtonRect.Width() + 10), 0);
+	
+	AddChild(new BButton(ButtonRect, "BeLoginView_Debug", "Quit", new BMessage(BL_QUIT)));
+#endif
+
 	Username->SetText(Settings->GetLastUser().String());
 	Password->MakeFocus(true);
 }

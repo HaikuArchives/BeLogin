@@ -36,6 +36,10 @@
 #define QUIT_TEAM_MONITOR							'Dsab'														// BLLoginWindow
 #define BL_REENABLE_LOGIN							'renl'														// BLLoginWindow
 
+#ifdef DEBUG
+#define BL_QUIT										B_QUIT_REQUESTED
+#endif
+
 const char VERSION[] 								= "BeLogin 1.3.2";										// Miscellaneous
 const char SETTINGS_VERSION[] 					= "BeLoginSettings 1.3.2";								// BLSettingsAboutView
 const char TITLE_LOGINWINDOW[] 					= "BeLogin";												// BLLoginWindow

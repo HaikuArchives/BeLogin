@@ -11,6 +11,8 @@
 
 #include "BLSettings.h"
 
+#define ENCRYPT(X) X
+#define DECRYPT(X) X
 /*
  * BLSettings(BPath path);
  *
@@ -102,7 +104,7 @@ status_t BLSettings::Load()
 			if(FindString("Password", ui, &Password) != B_OK)
 				return BL_LOAD_ERROR;
 
-			BLUser* user = new BLUser(DeCrypt(Username), DeCrypt(Password));
+			BLUser* user = new BLUser(DECRYPT(Username), DECRYPT(Password));
 			Users->AddItem(user);
 		}
 	}
@@ -120,7 +122,7 @@ status_t BLSettings::Load()
 
 			if(FindString("Runnable", ri, &runnable) != B_OK)
 				return BL_LOAD_ERROR;
-			Runnable->AddItem(new BString(DeCrypt(runnable)));
+			Runnable->AddItem(new BString(DECRYPT(runnable)));
 		}
 	}
 
@@ -137,7 +139,7 @@ status_t BLSettings::Load()
 
 			if(FindString("Blocked", bi, &blocked) != B_OK)
 				return BL_LOAD_ERROR;
-			Blocked->AddItem(new BString(DeCrypt(blocked)));
+			Blocked->AddItem(new BString(DECRYPT(blocked)));
 		}
 	}
 		
@@ -145,7 +147,7 @@ status_t BLSettings::Load()
 	if(FindString("LastUser", &LastUser) != B_OK)
 		return BL_LOAD_ERROR;
 
-	LastUser = DeCrypt(LastUser);
+	LastUser = DECRYPT(LastUser);
 
 	File->Unset();
 
@@ -182,23 +184,23 @@ status_t BLSettings::Save()
 	for(int ui=0;ui<Users->CountItems();ui++)
 	{	
 		BLUser* User = Users->ItemAt(ui);
-		AddString("Username", EnCrypt(User->GetUsername()));
-		AddString("Password", EnCrypt(User->GetPassword()));
+		AddString("Username", ENCRYPT(User->GetUsername()));
+		AddString("Password", ENCRYPT(User->GetPassword()));
 	}
 	
 	/* Add each Runnable */
 	for(int ri=0;ri<Runnable->CountItems();ri++)
 	{
-		AddString("Runnable", EnCrypt(*((BString*)Runnable->ItemAt(ri))));
+		AddString("Runnable", ENCRYPT(*((BString*)Runnable->ItemAt(ri))));
 	} 	
 
 	/* Add each Blocked */
 	for(int bi=0;bi<Blocked->CountItems();bi++)
 	{
-		AddString("Blocked", EnCrypt(*((BString*)Blocked->ItemAt(bi))));
+		AddString("Blocked", ENCRYPT(*((BString*)Blocked->ItemAt(bi))));
 	}
 	
-	AddString("LastUser", EnCrypt(LastUser));
+	AddString("LastUser", ENCRYPT(LastUser));
 	
 	/* Flatten me (BMessage)*/
 	if(Flatten(File) != B_OK)
@@ -251,11 +253,12 @@ char* BLSettings::MD5Encrypt(BString string) {
 	static char hex_digest[33];
 
 	MD5Init(&context);
+	
+	
 	MD5Update(&context,(uint8 *)password,strlen(password));
 	MD5Final(digest,&context);
-	for (int index = 0; index < 16; index++) 
+	for (int index = 0; index < 16; index++)
         sprintf(&(hex_digest[index*2]),"%02X", digest[index] & 255);
-        
    string.UnlockBuffer();
 
 	return hex_digest;
