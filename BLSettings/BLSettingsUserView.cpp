@@ -21,7 +21,6 @@ BLSettingsUserView::BLSettingsUserView(BRect canvas, BLSettings* bls)
 	float ButtonHeight = 25.0;
 	
 	/* Calculate list view position */
-	BRect canvas = Bounds();
 	BRect rectLVPos = BRect(canvas.left + Padding, canvas.top + Padding, (canvas.Width()/2) - Padding, canvas.bottom - (Padding + 3));
 
 	/* Create and add listview and scrollview*/

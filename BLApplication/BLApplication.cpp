@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 {
 	/* Find the settings path */
 	BPath path;
-	find_directory(B_COMMON_SETTINGS_DIRECTORY, &path);
+	find_directory(B_USER_SETTINGS_DIRECTORY, &path);
 
 	/* Add 'Settings' to path, and pass to BLSettings */
 	path.Append("BeLogin/Settings");

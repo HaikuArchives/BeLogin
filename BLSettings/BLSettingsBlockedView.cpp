@@ -23,7 +23,6 @@ BLSettingsBlockedView::BLSettingsBlockedView(BRect canvas, BLSettings* bls)
 	float ButtonHeight = 25.0;
 	
 	/* Calculate list view position */
-	BRect canvas = Bounds();
 	BRect rectLVPos = BRect(canvas.left + Padding, canvas.top + Padding, canvas.right - (Padding + B_V_SCROLL_BAR_WIDTH + 3), canvas.bottom - (Padding + 3 + B_H_SCROLL_BAR_HEIGHT + 35));
 
 	/* Create and add listview and scrollview*/

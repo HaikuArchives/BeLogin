@@ -16,7 +16,7 @@
  * Void!
  */
 BLSettingsView::BLSettingsView(BRect canvas)
-: BView(canvas, SETTINGS_TITLE_VIEW.String(), B_FOLLOW_ALL_SIDES, B_WILL_DRAW)
+: BView(canvas, "BLSettingsView", B_FOLLOW_ALL_SIDES, B_WILL_DRAW)
 {
 	(new BAlert("", "Used", "Ok", NULL, NULL, B_WIDTH_AS_USUAL, B_WARNING_ALERT))->Go();
 }
